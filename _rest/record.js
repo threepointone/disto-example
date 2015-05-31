@@ -11,7 +11,6 @@
 let {act} = require('disto');
 let {dis} = require('./$');
 
-
 function timeout(t){
   return new Promise(resolve => setTimeout(()=> resolve(), t));
 }
@@ -26,9 +25,6 @@ let $$ = act(dis.dispatch, {
     }
   }
 });
-
-
-
 
 $$.log = () => console.log(store.get());
 
