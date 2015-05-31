@@ -1,52 +1,26 @@
 'use strict';
 // get some dependencies
-import 'babel/polyfill';
 import 'whatwg-fetch';  // polyfill for w3c .fetch() api
 import React from 'react'; window.React = React;
 import imm from 'immutable';
 import immumix from 'react-immutable-render-mixin';
 import {decorate as mixin} from 'react-mixin';
-import request from 'superagent';
 import autobind from 'autobind-decorator';
 
 
 let Component = React.Component;
 
 // disto
-let {Dis, act} = require('disto');
 import mix from 'disto/lib/mix';
-import recorder from './record';
 
 // make a new dispatcher
-let {dispatch, register, waitFor} = recorder(new Dis());
+import {$, dis} from './$';
+import './record.js';
+
+let {register} = dis;
 
 
-// a couple of helpers to fetch data
-const services = {
-  search(query, callback){
-    return request(`http://localhost:3142/list/${query}?rows=20`).end(callback);
-  },
-  details(id, callback){
-    return request(`http://localhost:3142/product/${id}`).end(callback);
-  },
-  config(callback){
-    // fake fetching some async config
-    setTimeout(()=> {
-      callback(null, {configObj: {x: 1}});
-    }, Math.random() * 500);
-  }
-};
 
-
-// declare actions
-export const $ = act(dispatch, {
-  init: () => services.config($.init.done), // load config,
-  search: query => services.search(query, $.search.done),
-  details: id => services.details(id, $.details.done),
-  select: id => $.details(id),
-  backToList: ''
-}, 'dev');
-// ... that's it. most of the 'logic' is in the stores.
 
 // stores
 
@@ -132,18 +106,18 @@ const details = register(imm.fromJS({
   }
 }, imm.is);
 
-const conf = register({}, (config, action, ...args) => {
-  switch(action){
-    case $.init:
+// const conf = register({}, (config, action, ...args) => {
+//   switch(action){
+//     case $.init:
 
-      return config;
-    case $.init.done:
-      let [err, res] = args;
-      return (err || res.error) ? { error: err || res.error } : res;
-    default:
-      return config;
-  }
-});
+//       return config;
+//     case $.init.done:
+//       let [err, res] = args;
+//       return (err || res.error) ? { error: err || res.error } : res;
+//     default:
+//       return config;
+//   }
+// });
 
 // const dumbo = register({}, (o, action, ...args) => {
 //   waitFor(list, details, conf);
