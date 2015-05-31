@@ -26,7 +26,7 @@ export const App = React.createClass({
     return (
       <div className="App">
         <div>times: {data.tick.soFar} </div>
-        <button onClick={$.toggle}/>
+        <button onClick={() => $.toggle()}/>
         <div>clicks: {data.toggle.times} </div>
         <div>{data.tick.x || 'nothing'}</div>
       </div>

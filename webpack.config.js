@@ -1,5 +1,5 @@
 import webpack from 'webpack';
-import path from 'path';
+// import path from 'path';
 
 let config = {
   devtool: 'source-map',
@@ -39,6 +39,7 @@ if(process.env.HOT){
         loaders: [
         'react-hot',
         'disto-hot'
+        // path.join(__dirname, '../disto-hot-loader/lib/index.js')
         ].concat(config.module.loaders[0].loaders)
       }]
     },
