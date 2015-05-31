@@ -5,7 +5,8 @@ let config = {
   devtool: 'source-map',
   target: 'web',
   entry: {
-    www: ['./www/index.js']
+    www: ['./www/index.js'],
+    _rest: ['./_rest/index.js']
   },
   output: {
     path: __dirname,
