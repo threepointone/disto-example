@@ -106,24 +106,6 @@ const details = register(imm.fromJS({
   }
 }, imm.is);
 
-// const conf = register({}, (config, action, ...args) => {
-//   switch(action){
-//     case $.init:
-
-//       return config;
-//     case $.init.done:
-//       let [err, res] = args;
-//       return (err || res.error) ? { error: err || res.error } : res;
-//     default:
-//       return config;
-//   }
-// });
-
-// const dumbo = register({}, (o, action, ...args) => {
-//   waitFor(list, details, conf);
-//   console.log(action + '', ...args);
-//   return o;
-// });
 
 @mixin(immumix)
 @mixin(mix)
