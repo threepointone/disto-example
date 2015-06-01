@@ -1,30 +1,16 @@
 'use strict';
 // get some dependencies
-import 'whatwg-fetch';  // polyfill for w3c .fetch() api
 import React from 'react'; window.React = React;
 import imm from 'immutable';
 import immumix from 'react-immutable-render-mixin';
 import {decorate as mixin} from 'react-mixin';
 import autobind from 'autobind-decorator';
+import mix from 'disto/mix';
 
-
-let Component = React.Component;
-
-// disto
-import mix from 'disto/lib/mix';
-
-// make a new dispatcher
 import {$, dis} from './$';
-import './record.js';
-
-let {register} = dis;
-
-
-
 
 // stores
-
-const list = register(imm.fromJS({
+const list = dis.register(imm.fromJS({
   loading: false,
   query: '',
   results: [],
@@ -72,7 +58,7 @@ const list = register(imm.fromJS({
   }
 }, imm.is);
 
-const details = register(imm.fromJS({
+const details = dis.register(imm.fromJS({
   loading: false,
   query: '',
   results: []
@@ -109,8 +95,8 @@ const details = register(imm.fromJS({
 
 @mixin(immumix)
 @mixin(mix)
-export class App extends Component {
-  observe(props){
+export class App extends React.Component {
+  observe(){
     return {
       list,
       details
@@ -127,7 +113,7 @@ function vis(bool){
 }
 
 @mixin(immumix)
-class Search extends Component {
+class Search extends React.Component {
   sender(fn){
     return function(){
       this.send(fn, ...arguments);
@@ -153,7 +139,7 @@ class Search extends Component {
 
 
 @mixin(immumix)
-class Results extends Component {
+class Results extends React.Component {
   render() {
     return (
       <div className="Results" style={this.props.style}>
@@ -164,7 +150,7 @@ class Results extends Component {
 }
 
 @mixin(immumix)
-class Result extends Component {
+class Result extends React.Component {
   @autobind
   onClick(){
     $.select(this.props.product.get('styleid'));
@@ -182,7 +168,7 @@ class Result extends Component {
 
 
 @mixin(immumix)
-class Details extends Component {
+class Details extends React.Component {
   render() {
     const props = this.props;
     return (

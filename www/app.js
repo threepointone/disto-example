@@ -48,25 +48,20 @@ export const toggle = register({
   }
 });
 
-
 // views
 export const App = React.createClass({
   mixins: [mix],
   observe(){
-    return { tick, toggle };
+    return {tick, toggle};
   },
   render() {
     var data = this.state.data;
-    return (
-      <div className="App">
-        <div>times: {data.tick.soFar} </div>
-        <button onClick={() => $.toggle()}/>
-        <div>clicks: {data.toggle.times} </div>
-        <div>{data.tick.x || 'nothing'}</div>
-      </div>
-    );
+    return <div className="App">
+      <div>times: {data.tick.soFar} </div>
+      <button onClick={() => $.toggle()}/>
+      <div>clicks: {data.toggle.times} </div>
+    </div>;
   }
 });
-
 
 React.render(<App/>, document.getElementById('container'));

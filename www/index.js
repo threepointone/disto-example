@@ -1,4 +1,4 @@
 import 'babel/polyfill';
-import {App} from './app';
+import './app';
 
 
