@@ -1,12 +1,53 @@
-import React from 'react'; window.React = React;
-import {$} from './$';
+import React from 'react';
+window.React = React;
 
 // disto
+const {Dis, act} = require('disto');
 import mix from 'disto/mix';
 
+// make a new dispatcher
+const {dispatch, register} = new Dis();
 
-import {tick} from './tick';
-import {toggle} from './toggle';
+// actions
+export const $ = act(dispatch, {
+  tick: () => toggle.get().active && setTimeout($.tick, 10),
+  toggle: () => $.tick()
+});
+
+// stores
+export const tick = register({
+  soFar: 0,
+  ticks: 0,
+  start: Date.now()
+}, (o, action) => {
+  switch(action){
+    case $.tick:
+      return {
+        ...o,
+        soFar: (Date.now() - o.start),
+        ticks: o.ticks + 1
+      };
+    default:
+      return o;
+  }
+});
+
+export const toggle = register({
+  active: false,
+  times: 0
+}, (o, action) => {
+  switch(action){
+    case $.toggle:
+      return {
+        ...o,
+        active: !o.active,
+        times: o.times + 1
+      };
+    default:
+      return o;
+  }
+});
+
 
 // views
 export const App = React.createClass({
