@@ -1,7 +1,3 @@
-// NOT WORKING, need to fix actions
-
-// get some dependencies
-
 import React from 'react'; window.React = React;
 import {$} from './$';
 
