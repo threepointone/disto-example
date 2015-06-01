@@ -10,10 +10,11 @@ r.setup(dis, rStore);
 
 // declare actions
 export const $ = act(dis.dispatch, {
-  init: () => services.config($.init.done), // load config,
-  search: query => services.search(query, $.search.done),
-  details: id => services.details(id, $.details.done),
+  init: () => services.config(), // load config,
+  search: query => services.search(query),
+  details: id => services.details(id),
   select: id => $.details(id),
   backToList: ''
 }, 'dev');
+
 // ... that's it. most of the 'logic' is in the stores.
