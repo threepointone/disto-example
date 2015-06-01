@@ -52,11 +52,8 @@ export const toggle = register({
 // views
 export const App = React.createClass({
   mixins: [mix],
-  getDefaultProps() {
+  observe(){
     return { tick, toggle };
-  },
-  observe(props){
-    return props;
   },
   render() {
     var data = this.state.data;
