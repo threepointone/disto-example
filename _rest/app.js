@@ -20,7 +20,6 @@ const list = dis.register(imm.fromJS({
 
     case $.search:
       let [query] = args;
-
       return o.merge(imm.fromJS({
         selected: false,
         loading: true,
@@ -30,17 +29,17 @@ const list = dis.register(imm.fromJS({
 
     case $.search.done:
       const [err, res] = args;
-        return (err || res.error) ?
-          o.merge(imm.fromJS({
-            loading: false,
-            results: [],
-            error: err || res.error
-          })) :
-          o.merge(imm.fromJS({
-            loading: false,
-            results: res.body.data.results.products,
-            error: null
-          }));
+      return (err || res.error) ?
+        o.merge(imm.fromJS({
+          loading: false,
+          results: [],
+          error: err || res.error
+        })) :
+        o.merge(imm.fromJS({
+          loading: false,
+          results: res.body.data.results.products,
+          error: null
+        }));
 
     case $.select:
       let [id] = args;
